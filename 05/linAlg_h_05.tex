@@ -1,0 +1,194 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol} %spalten in seite
+\usepackage{graphicx} %bilder einfügen
+\usepackage{tabto} %tabulator mit \tab
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}  
+\usepackage[utf8]{inputenc}
+\usepackage{listings} %quellcode
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+\newcommand{\ci}{\mathrm{i}}
+\usepackage[left=20mm, right=15mm, top=25mm, bottom=30mm, paper=a4paper]{geometry}
+
+\begin{document}
+	
+	\title{Lineare Algebra - Übung 05}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+	
+	\section*{5.1) Rechnen in $\mathbb{C}$}
+	\quad\quad *) $z=\left(\frac{\sqrt{2}-\sqrt{6}\mathrm{i}}{1+\mathrm{i}}\right)^3-8\sqrt{2}$
+		\begin{align*}
+			\left(\frac{\sqrt{2}-\sqrt{6}\mathrm{i}}{1+\mathrm{i}}\right)^3&=\left(\frac{(\sqrt{2}-\sqrt{6}\mathrm{i})(\mathrm{1-i})}{(1+\mathrm{i})(\mathrm{1-i})}\right)^3=\left(\frac{\sqrt{2}-\sqrt{2}\mathrm{i}-\sqrt{6}-\sqrt{6}\mathrm{i}}{1-\mathrm{i}+\mathrm{i}+1}\right)^3\\
+			&=\left(\frac{1}{2}\left(\sqrt{2}-\sqrt{2}\ci-\sqrt{6}\ci-\sqrt{6}\right)\right)^3=\left(\frac{1}{2}\left(\sqrt{2}(1-\ci)+\sqrt{6}(-\ci-1)\right)\right)^3\\
+			&\Rightarrow\frac{1}{8}\left((\sqrt{2}(1-\ci))^3+3(\sqrt{2}(1-\ci))^2(\sqrt{6}(-\ci-1))+3(\sqrt{2}(1-\ci))(\sqrt{6}(-\ci-1))^2+(\sqrt{6}(-\ci-1))^3)\right)\\
+			&=\frac{1}{8}\left(2\sqrt{2}(-2-2\ci)+3(2(-2\ci))(\sqrt{6}(-\ci-1))+3(\sqrt{2}(1-\ci))(6(2\ci))+(6\sqrt{6}(2-2\ci))\right)\\
+			&=\frac{1}{8}\left(-4\sqrt{2}-4\sqrt{2}\ci+3(-4\sqrt{6}+4\ci\sqrt{6})+3(12\ci\sqrt{2}+12\sqrt{2})+12\sqrt{6}-12\ci\sqrt{6}\right)\\
+			&\Rightarrow\frac{1}{8}\left(-4\sqrt{2}-4\ci\sqrt{2}+12\sqrt{6}-12\ci\sqrt{6}+3((-4\sqrt{6}+4\ci\sqrt{6})+(12\ci\sqrt{2}+12\sqrt{2}))\right)\\
+			&\Rightarrow\frac{1}{8}\left(32\sqrt{2}+\ci(-4\sqrt{2}-12\sqrt{6})+\ci(12\sqrt{6}+36\sqrt{2})\right)\\
+			&=\frac{1}{8}(32\sqrt{2}+\ci(32\sqrt{2}))=4\sqrt{2}+4\ci\sqrt{2} \mid\text{(*)}\\ \Rightarrow z&=4\sqrt{2}-8\sqrt{2}+4\ci\sqrt{2}\\
+			&=-4\sqrt{2}+4\ci\sqrt{2}
+		\end{align*}
+	Also folgt für die Bestimmung der Polarkoordinatenform:
+		\begin{align*}
+			r&=\sqrt{(-4\sqrt{2})^2+(4\sqrt{2})^2}=\sqrt{64}=8\\
+			\varphi&=arccos\left(\frac{-4\sqrt{2}}{8}\right)=arccos\left(\frac{-\sqrt{2}}{2}\right)=\frac{3\pi}{4}
+		\end{align*}
+	Somit folgt:
+		\begin{align*}
+			z=8\left(cos\left(\frac{3\pi}{4}\right)+\ci\,sin\left(\frac{3\pi}{4}\right)\right)
+		\end{align*}
+	\section*{5.2) Ein lineares Gleichungssystem in Zeilenstufenform}
+		Die Pivospalten der Koeffizientenmatrix sind $j_1=1$, $j_2=2$, $j_3=4$. $x_1,x_2,x_4$ sind gebundene Variablen und $x_3$ ist die freie Variable von $A\vec{x}=\vec{b}$. Die Basislösung $\vec{\beta_3}$ lässt sich wie folgt berechnen, man setzte $x_3=1$ und alle Gleichungen Null:
+		\begin{align*}
+			4x_1+2x_2-3+2x_4&=0\\
+			2x_2+1+1x_4&=0\\
+			2x_4&=0
+		\end{align*}
+	Aus Zeile 3 folgt $x_4=0$. Dies eingesetzt in Zeile 2 bringt $2x_2+1=0$ somit ist $x_2=-\frac{1}{2}$. $x_4$ und $x_2$ in Zeile 1 eingesetzt liefert $4x_1-1-3=0$ d.h.: $x_1=1$. Aus diesen Berechnungen folgt:
+	\begin{align*}
+		\vec{\beta_3}=\left(\begin{matrix}1\\-1/2\\1\\0\end{matrix}\right)
+	\end{align*}
+	Nun wird $x_3=0$ gesetzt um $\vec{x_{spez.}}$ zu erhalten:
+	\begin{align*}
+		4x_1+2x_2+2x_4&=2\\
+		2x_2+x_4&=2\\
+		2x_4=1
+	\end{align*}
+	Aus Zeile 3 folgt $x_4=\frac{1}{2}$. Dies eingesetzt in Zeile 2 bringt $2x_2+\frac{1}{2}=2$ somit ist $x_2=\frac{3}{4}$. $x_4$ und $x_2$ in Zeile 1 eingesetzt liefert $4x_1+3/2+1=2$ d.h.: $x_1=-\frac{1}{8}$. Aus diesen Berechnungen folgt:
+	\begin{align*}
+		\vec{x_{spez.}}=\left(\begin{matrix}-1/8\\3/4\\0\\1/2\end{matrix}\right)
+	\end{align*}
+	D.h.:\quad\quad  $LR(A;\vec{b})=\{\left(\begin{matrix}-1/8\\3/4\\0\\1/2\end{matrix}\right)+\left(\begin{matrix}1\\-1/2\\1\\0\end{matrix}\right)\cdot c\mid c\in\mathbb{R}\}$
+	\section*{5.3) Gauß-Elimination}
+	Gauß Elimination für $A=$
+		\scalebox{0.7}{$\left(\begin{matrix}
+			1&2&3&4\\
+			3&6&10&11\\
+			-1&-3&-1&1\\
+			1&1&7&7&\\
+		\end{matrix}\right)$}.
+	Es ist $A_{1,1}\neq0.$ Wir ziehen das dreifache der ersten Zeile von der zweiten ab, addieren die erste Zeile auf die dritte und ziehen noch die erste von der vierten Zeile ab. Wir erhalten:
+	\scalebox{0.7}{$\left(\begin{matrix}
+		1&2&3&4\\
+		0&0&1&-1\\
+		0&-1&2&5\\
+		0&-1&4&3&\\
+	\end{matrix}\right)$}.
+	Jetzt $i:=2$. Weil $A_{2,2}=0$ vertauschen wir die zweite mit der dritten Zeile von A:
+	\scalebox{0.7}{$\left(\begin{matrix}
+		1&2&3&4\\
+		0&-1&2&5\\
+		0&0&1&-1\\
+		0&-1&4&3&\\
+	\end{matrix}\right)$}.
+	Jetzt ziehen wir die zweite von der vierten ab und multiplizieren die zweite mit -1:
+	\scalebox{0.7}{$\left(\begin{matrix}
+		1&2&3&4\\
+		0&1&-2&-5\\
+		0&0&1&-1\\
+		0&0&2&-2&\\
+	\end{matrix}\right)$}.
+	Jetzt ziehen wir das 2-Fache der zweiten von der ersten ab:
+	\scalebox{0.7}{$\left(\begin{matrix}
+			1&0&7&14\\
+			0&1&-2&-5\\
+			0&0&1&-1\\
+			0&0&2&-2&\\
+		\end{matrix}\right)$}.
+	Jetzt $i:=3$. Wir ziehen das doppelte der dritten von der vierten ab:
+	\scalebox{0.7}{$\left(\begin{matrix}
+			1&0&7&14\\
+			0&1&-2&-5\\
+			0&0&1&-1\\
+			0&0&0&0&\\
+		\end{matrix}\right)$}.
+	Und nun wird noch abschließend das 2-Fache der dritten auf die zweite addiert und das 7-Fache der dritten von der ersten abgezogen:
+	\scalebox{0.7}{$\left(\begin{matrix}
+			1&0&0&21\\
+			0&1&0&-7\\
+			0&0&1&-1\\
+			0&0&0&0&\\
+		\end{matrix}\right)$}.
+	\section*{5.4) Eine Transferleistung}
+	Dafür muss zunächst $x_1,x_2,x_3\in\mathbb{R}$ gefunden werden, so dass:
+	\begin{align*}
+		x_1\begin{pmatrix}
+			0\\1\\1\\1
+		\end{pmatrix}+
+		x_2\begin{pmatrix}
+			1\\2\\0\\-1
+		\end{pmatrix}+
+		x_3\begin{pmatrix}
+			1\\-1\\3\\a
+		\end{pmatrix}=
+		\begin{pmatrix}
+			3\\1\\1\\-1
+		\end{pmatrix}
+	\end{align*}
+	Die daraus entstehende Koeffizienten Matrix ist nun in ZSF zu bringen und anschließend zu lösen:
+	\begin{align*}
+		\left(\begin{array}{ccc|c}
+			0&1&1&3\\
+			1&2&-1&1\\
+			1&0&3&1\\
+			1&-1&a&-1\\
+		\end{array}\right)
+		\overset{(1)}{\rightsquigarrow}
+		\left(\begin{array}{ccc|c}
+			1&2&-1&1\\
+			0&1&1&3\\
+			1&0&3&1\\
+			1&-1&a&-1\\
+		\end{array}\right)
+		\overset{(2)}{\rightsquigarrow}
+		\left(\begin{array}{ccc|c}
+			1&2&-1&1\\
+			0&1&1&3\\
+			0&-2&4&0\\
+			0&-3&a+1&-2\\
+		\end{array}\right)
+		\overset{(3)}{\rightsquigarrow}
+		\left(\begin{array}{ccc|c}
+			1&2&-1&1\\
+			0&1&1&3\\
+			0&0&6&6\\
+			0&0&a+4&7\\
+		\end{array}\right)	
+		\\
+		\overset{(4)}{\rightsquigarrow}
+		\left(\begin{array}{ccc|c}
+			1&2&-1&1\\
+			0&1&1&3\\
+			0&0&6&6\\
+		\end{array}\right)
+	\end{align*}
+	(1) i:=1, Zeile 1 und 2 tauschen. (2) Zeile 3 minus Zeile 1 und Zeile 4 minus Zeile 1. (3) i:=2, das 2-Fache der zweiten addiert auf die dritte und das dreifache der zweiten auf die vierte addiert.(4) Um die ZSF zu erhalten muss die letzte Zeile ignoriert werden. Dies ist valide, da a+4 keine gebundene Variable ist sondern ein Parameter.
+	\\\\
+	Somit beginnt im folgenden die Rückwärtssubstitution in der dritten Zeile und anschließend wird a noch berechnet.:
+	\begin{align*}
+		\left(\begin{array}{ccc|c}
+		1&2&-1&1\\
+		0&1&1&3\\
+		0&0&6&6\\
+		0&0&a+4&7\\
+		\end{array}\right)
+		\begin{array}{r}
+		x_1+2x_2-x_3=1\\
+		x_2+x_3=3\\
+		6x_3=6\\
+		(a+4)x_3=7
+		\end{array}
+	\end{align*}
+	Aus Zeile 3 folgt $x_3=1$. Eingesetzt in Zeile 2: $x_2+1=3$ folgt $x_2=2$. Eingesetzt in Zeile 3: $x_1+4-1=1$ folgt $x_1=-2$. $x_3$ eingesetzt in die vierte Zeile: $a+4=7$ folgt $a=3$\\\\
+	D.h.: \underline{\underline{$a=3$}}
+\end{document}

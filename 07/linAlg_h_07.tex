@@ -1,0 +1,178 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol} %spalten in seite
+\usepackage{graphicx} %bilder einfügen
+\usepackage{tabto} %tabulator mit \tab
+\usepackage{hyperref}
+\usepackage{bbm}
+\usepackage{bbold}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs} 
+\usepackage{stmaryrd}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} %quellcode
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+\usepackage[left=20mm, right=15mm, top=25mm, bottom=30mm, paper=a4paper]{geometry}
+\renewcommand{\contentsname}{Inhaltsverzeichnis}
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\1}{\mathbb{1}}
+\newcommand{\0}{\mathbb{0}}
+\newcommand{\Z}{\mathbb{Z}}
+\begin{document}
+	
+	\title{Lineare Algebra - Übung 07}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+	
+	\section*{7.1) Untervektorräume}
+		\subsection*{a) U $\cap$ W $\le$ V}
+			\begin{align*}
+				\vec{0}\in U\wedge\vec{0}\in W&\Rightarrow\vec{0}\in U\cap W\neq\emptyset\qed\\
+				\vec{v},\vec{w}&\in U\cap W\\
+				\Rightarrow\vec{v},\vec{w}\in U&\wedge\vec{v},\vec{w}\in W\\
+				\lambda\vec{v}+\mu\vec{w}\in U&\wedge\lambda\vec{v}+\mu\vec{w}\in W\mid mit\quad\lambda,\mu\in\mathbb{K},\quad\text{da $U,W$ Untervektorräume sind}\\
+				\Rightarrow\lambda\vec{v}+\mu\vec{w}&\in U\cap W\qed
+			\end{align*}
+		\subsection*{b) U $+$ W $\le$ V}
+			\begin{align*}
+				\vec{0}\in U&\wedge\vec{0}\in W\Rightarrow \vec{0}+\vec{0}=\vec{0}\in U+W\qed\\
+				\vec{f}_1,\vec{f}_2,&\in U+W;\lambda,\mu\in\K\\
+				\lambda\vec{f}_1&+\mu\vec{f}_2\\
+				\lambda(\vec{u}_1&+\vec{w}_1)+\mu(\vec{u}_2+\vec{w}_2)\mid\text{ mit } \vec{f}_1:=\vec{u}_1+\vec{w_1},\vec{f}_2:=\vec{u}_2+\vec{w}_2\\
+				\lambda\vec{u}_1+\mu\vec{u}_2&+\lambda\vec{w}_1+\mu\vec{w}_2\\
+				\lambda\vec{u}_1+\mu\vec{u}_2\in U,\lambda\vec{w}_1+\mu\vec{w}_2\in W &\Rightarrow \lambda\vec{u}_1+\mu\vec{u}_2+\lambda\vec{w}_1+\mu\vec{w}_2\in U+W\qed
+			\end{align*}
+		\subsection*{c) U $\le$ U $+$ W}
+			\begin{align*}
+				U&\subseteq U+W\Rightarrow \vec{x}\in U\Rightarrow \vec{x}\in U+W\\
+				\vec{0}&\in U\qed\\
+				\vec{z}_1&\in U;\lambda,\mu\in\K\\
+				\vec{z}_1\in U&\Rightarrow\vec{z}_1=\vec{z}_1+\vec{0}\in U\\
+				&\Rightarrow\vec{z}_1=\vec{z}_1+\vec{0}\in U+W\mid\text{ da }\vec{0}\in W\qed
+			\end{align*}
+	\section*{7.2) Lineare Abbildungen?}
+		Im folgenden habe ich angenommen, dass alle Abbildungen linear sind und habe die geltenden Eigenschaften auf Widerspruchsfreiheit überprüft.
+		\begin{align*}
+			f\begin{pmatrix}a\\b\\c\end{pmatrix}
+			+
+			f\begin{pmatrix}d\\e\\f\end{pmatrix}
+			&=
+			f\begin{pmatrix}a+d\\b+e\\c+f\end{pmatrix}
+			\\
+			\begin{pmatrix}a\cdot b\\a+b\end{pmatrix}
+			+
+			\begin{pmatrix}d\cdot e\\d+e\end{pmatrix}
+			&=
+			\begin{pmatrix}(a+d)\cdot(b+e)\\a+d+b+e\end{pmatrix}
+			\\
+			\begin{pmatrix}ab+de\\a+b+d+e\end{pmatrix}
+			&=
+			\begin{pmatrix}ab+ae+db+de\\a+d+b+e\end{pmatrix}\scalebox{2}{$\lightning$}
+		\end{align*}
+		D.h. f ist nicht linear!
+		\begin{align*}
+			g\begin{pmatrix}a\\b\end{pmatrix}
+			+
+			g\begin{pmatrix}d\\e\end{pmatrix}
+			&=
+			g\begin{pmatrix}a+d\\b+e\end{pmatrix}
+			\\
+			\begin{pmatrix}3a+1\\4b+a+1\end{pmatrix}
+			+
+			\begin{pmatrix}3d+1\\4e+d+1\end{pmatrix}
+			&=
+			\begin{pmatrix}3(a+d)+1\\4(b+e)+a+d+1\end{pmatrix}
+			\\
+			\begin{pmatrix}3(a+d)+2\\4(b+e)+a+d+2\end{pmatrix}
+			&=
+			\begin{pmatrix}3(a+d)+1\\4(b+e)+a+d+1\end{pmatrix}\scalebox{2}{$\lightning$}
+		\end{align*}
+		D.h. g ist nicht linear!
+		\begin{align*}
+			h\begin{pmatrix}a\\b\end{pmatrix}
+			+
+			h\begin{pmatrix}d\\e\end{pmatrix}
+			&=
+			h\begin{pmatrix}a+d\\b+e\end{pmatrix}
+			\\
+			\begin{pmatrix}a+3b\\b+3a\\0\end{pmatrix}
+			+
+			\begin{pmatrix}d+3e\\e-3d\\0\end{pmatrix}
+			&=
+			\begin{pmatrix}a+d+3(b+e)\\b+e-3(a+d)\\0\end{pmatrix}
+			\\
+			\begin{pmatrix}a+d+3(b+e)\\b+e-3(a+d)\\0\end{pmatrix}&=\begin{pmatrix}a+d+3(b+e)\\b+e-3(a+d)\\0\end{pmatrix}\qed
+			\\\\
+			h\left(k\cdot\begin{pmatrix}a\\b\end{pmatrix}\right)&=k\cdot h\begin{pmatrix}a\\b\end{pmatrix}
+			\\
+			h\begin{pmatrix}ka\\kb\end{pmatrix}&=k\cdot \begin{pmatrix}a+3b\\b-3a\\0\end{pmatrix}
+			\\
+			\begin{pmatrix}ka+3kb\\kb-3ka\\0\end{pmatrix}&=\begin{pmatrix}ka+3kb\\kb-3ka\\0\end{pmatrix}\qed
+		\end{align*}
+		D.h. h ist linear!
+	\section*{7.3) Lineare Abbildungen??}
+		Im folgenden habe ich angenommen, dass die Abbildung linear ist und ich habe die geltenden Eigenschaften auf Widerspruchsfreiheit überprüft. Zusätzlich habe ich genutzt, dass $k\in\{0,1\}$. Da der Körper $\K:=\Z/2\Z$ ist.
+		\begin{align*}
+			f(p)+f(i)&=f(p+i)\\
+			p^2+i^2&=(p+i)^2\\
+			&=p^2+2pi+i^2\mid2=0,\,da\,\K:=\Z/2\Z\\
+			&\Rightarrow p^2+i^2\qed\\\\
+			f(kp)&=k\cdot f(p)\\
+			(kp)^2&=k\cdot p^2\\
+			\text{Wenn $k=0$}\Rightarrow(0\cdot p)^2&=0\cdot p^2\\
+			0&=0\qed\\
+			\text{Wenn $k=1$}\Rightarrow1^2\cdot p^2&=1\cdot p^2\qed
+		\end{align*}
+	\section*{7.4) Basisauswahl}
+		Im folgenden habe ich zuerst die gegebenen Vektoren als Matrix zusammengefasst. Diese wurde auf ZSF gebracht, um den überflüssigen Vektor zu ermitteln.
+		\begin{align*}
+			\begin{pmatrix}
+				1&0&5&-1&-2\\
+				0&1&-4&2&1\\
+				2&1&6&1&-3\\
+				1&0&5&-3&-2
+			\end{pmatrix}
+			\overset{(1.)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&0&5&-1&-2\\
+				0&1&-4&2&1\\
+				0&1&-4&3&1\\
+				0&0&0&-2&0
+			\end{pmatrix}
+			\overset{(2.)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&0&5&-1&-2\\
+				0&1&-4&2&1\\
+				0&0&0&1&0\\
+				0&0&0&1&0
+			\end{pmatrix}
+		\end{align*}
+		\begin{align*}
+			\overset{(3.)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&0&-1\\
+				0&1&2\\
+				0&0&1\\
+			\end{pmatrix}
+			\Rightarrow
+			\vec{v}_1,\vec{v}_2,\vec{v}_4\text{ bilden die Basis von V}
+		\end{align*}
+		D.h. $V=Span(\vec{v}_1,\vec{v}_2,\vec{v}_4)\qed$
+		\begin{enumerate}
+			\item Ziehe das 2-fache der ersten Zeile von der 3et ab und subtrahiere die 1te von der 4ten Zeile.
+			\item Von der 3ten Zeile wird die 2te abgezogen. Und die 4te wird mit $-\frac{1}{2}$ multipliziert.
+			\item Die 4te und 3te Zeile sind identisch, die 4te wird eliminiert. Die 3te und 5te Spalte sind keine Pivot-Spalten. Sie werden eliminiert.
+		\end{enumerate}
+\end{document}

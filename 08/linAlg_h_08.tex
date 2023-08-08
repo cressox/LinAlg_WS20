@@ -1,0 +1,215 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol} %spalten in seite
+\usepackage{graphicx} %bilder einfügen
+\usepackage[normalem]{ulem} %durchstreichen
+\usepackage{tabto} %tabulator mit \tab
+\usepackage{hyperref}
+\usepackage{wasysym}
+\usepackage{bbm}
+\usepackage{bbold}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}  
+\usepackage[utf8]{inputenc}
+\usepackage{listings} %quellcode
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+\usepackage[left=20mm, right=15mm, top=25mm, bottom=30mm, paper=a4paper]{geometry}
+\renewcommand{\contentsname}{Inhaltsverzeichnis}
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\1}{\mathbb{1}}
+\newcommand{\0}{\mathbb{0}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+	
+	\title{Lineare Algebra - Übung 08}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+	
+	\part*{Hausaufgaben (Abgabe bis 11.01.2021, 14:00 Uhr)}
+	\section*{8.1) $Seien$ $f : X$ $\rightarrow$ $Y$ $und$ $g : Y$ $\rightarrow$ $Z$ $Abbildungen.$}
+		\subsection*{a)}
+			\begin{align*}
+				g\circ f:=g(f(x))\text{ da injektiv}\Rightarrow g(f(x_1))\neq g(f(x_2))\Rightarrow f(x_1)\neq f(x_2)\Rightarrow f\text{ ist injektiv.}\qed
+			\end{align*}
+		\subsection*{b)}
+			\begin{align*}
+				g(f(x))\text{ ist surjektiv}\Rightarrow\forall z\in Z:\exists x\in X:g(f(x))=z\Rightarrow\exists f(x)\in Y:g(f(x))=z\Rightarrow\text{ g ist surjektiv}\qed
+			\end{align*}
+	\section*{8.2) $Invertierbarkeit$ $von$ $2$ $\times$ $2-Matrizen$}
+		\subsection*{a)}
+			\begin{align*}
+				det\begin{pmatrix}1&3\\2&8\end{pmatrix}&=1\cdot8-3\cdot2 &det\begin{pmatrix}2&-5\\-4&10\end{pmatrix}&=2\cdot10-(-4)\cdot(-5)
+				\\
+				&=2 & &=0
+			\end{align*}
+		\subsection*{b)}
+			\begin{align*}
+				AB&=
+				\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}
+				\begin{pmatrix}B_{11}&B_{12}\\B_{21}&B_{22}\end{pmatrix}
+				=
+				\begin{pmatrix}A_{11}B_{11}+A_{12}B_{21}&A_{11}B_{12}+A_{12}B_{22}\\A_{21}B_{11}+A_{22}B_{21}&A_{21}B_{12}+A_{22}B_{22}\end{pmatrix}\\
+				det(AB)&=(A_{11}B_{11}+A_{12}B_{21})\cdot (A_{21}B_{12}+A_{22}B_{22})-(A_{11}B_{12}+A_{12}B_{22})\cdot (A_{21}B_{11}+A_{22}B_{21})\\
+				&=\text{\scalebox{0.7}{$\textcolor{blue}{\text{\sout{$A_{11}B_{11}A_{21}B_{12}$}}}+A_{11}B_{11}A_{22}B_{22}+A_{12}B_{21}A_{21}B_{12}+\textcolor{red}{\text{\sout{$A_{12}B_{21}A_{22}B_{22}$}}}-\textcolor{blue}{\text{\sout{$A_{11}B_{12}A_{21}B_{11}$}}}+A_{11}B_{12}A_{22}B_{21}+A_{12}B_{22}A_{21}B_{11}+\textcolor{red}{\text{\sout{$A_{12}B_{22}A_{22}B_{21}$}}}$}}\\
+				&=\textcolor{orange}{A_{11}B_{11}A_{22}B_{22}}+\textcolor{magenta}{A_{12}B_{21}A_{21}B_{12}}-\textcolor{cyan}{A_{11}B_{12}A_{22}B_{21}}+\textcolor{brown}{A_{12}B_{22}A_{21}B_{11}}\\
+				det(A)\cdot det(B)&=(A_{11}A_{22}-A_{12}A_{21})\cdot (B_{11}B_{22}-B_{12}B_{21})\\
+				&=\textcolor{orange}{A_{11}A_{22}B_{11}B_{22}}- \textcolor{cyan}{A_{11}A_{22}B_{12}B_{21}}-\textcolor{brown}{A_{12}A_{21}B_{11}B_{22}}+\textcolor{magenta}{A_{12}A_{21}B_{12}B_{21}}\qed
+			\end{align*}
+		D.h. $\underbrace{det(AB)=det(A)\cdot det(B)}_{(1)}$ gilt.
+		\subsection*{c)}
+		Voraussetzung: $\underbrace{det(A)=0}_{(2)}$
+			\begin{align*}
+				\text{Wenn }AB=\1_2\Rightarrow det(AB)=1\overset{(1)}{\Rightarrow} det(A)\cdot det(B)=1\overset{(2)}{=}0\cdot det(B)&=1\text{ \lightning}\qed
+			\end{align*}
+		\subsection*{d)}
+			$det(A)\neq0\Rightarrow A_{11}A_{22}-A_{12}A_{21}\neq0\Rightarrow A_{11}A_{22}\neq A_{12}A_{21}$	
+			\begin{align*}
+				AB&
+				=
+				\begin{pmatrix}\textcolor{blue}{A_{11}B_{11}+A_{12}B_{21}}&\textcolor{orange}{A_{11}B_{12}+A_{12}B_{22}}\\\textcolor{red}{A_{21}B_{11}+A_{22}B_{21}}&\textcolor{cyan}{A_{21}B_{12}+A_{22}B_{22}}\end{pmatrix}\overset{!}{=}\1_2\overset{!}{=}\begin{pmatrix}\textcolor{blue}{1}&\textcolor{orange}{0}\\\textcolor{red}{0}&\textcolor{cyan}{1}\end{pmatrix}\\
+				&\Rightarrow \textcolor{blue}{A_{11}B_{11}+A_{12}B_{21}}=1\wedge \underbrace{\textcolor{orange}{A_{11}B_{12}+A_{12}B_{22}}=0}_I\wedge\, \textcolor{red}{A_{21}B_{12}+A_{22}B_{22}}=1\wedge \underbrace{\textcolor{cyan}{A_{21}B_{11}+A_{22}B_{21}}=0}_{II}\\
+				&\overset{I}{\Rightarrow}A_{11}B_{12}=-A_{12}B_{22}\Rightarrow B_{12}=A_{12}\wedge B_{22}=-A_{11}\\
+				&\overset{II}{\Rightarrow}A_{21}B_{11}=-A_{22}B_{21}\Rightarrow B_{11}=-A_{22}\wedge B_{21}=A_{21}\\
+				&\Rightarrow B=\begin{pmatrix}-A_{22}&A_{12}\\A_{21}&-A_{11}\end{pmatrix}\\
+				AB&=\begin{pmatrix}-A_{11}A_{22}+A_{12}A_{21}&A_{11}A_{12}-A_{12}A_{11}\\-A_{21}A_{22}+A_{22}A_{21}&A_{21}A_{12}-A_{22}A_{11}\end{pmatrix}=\begin{pmatrix}A_{21}A_{12}-A_{22}A_{11}&0\\0&A_{21}A_{12}-A_{22}A_{11}\end{pmatrix}\overset{!}{=}\begin{pmatrix}1&0\\0&1\end{pmatrix}\\
+				\Rightarrow B&:=\frac{1}{A_{21}A_{12}-A_{22}A_{11}}\begin{pmatrix}-A_{22}&A_{12}\\A_{21}&-A_{11}\end{pmatrix}\text{ denn somit folgt:}\\
+				AB&=\frac{1}{A_{21}A_{12}-A_{22}A_{11}}\begin{pmatrix}A_{21}A_{12}-A_{22}A_{11}&0\\0&A_{21}A_{12}-A_{22}A_{11}\end{pmatrix}=\1_2\qed
+			\end{align*}
+			D.h. $B$ \underline{existiert} und zwar als $\frac{1}{A_{21}A_{12}-A_{22}A_{11}}\begin{pmatrix}-A_{22}&A_{12}\\A_{21}&-A_{11}\end{pmatrix}$.
+	\section*{8.3}
+		Aus $A$ und $\1_3$ folgt die erweiterte Matrix:
+		\begin{align*}
+			\begin{pmatrix}
+				-1&4&0&1&0&0\\
+				-1&3&1&0&1&0\\
+				0&3&-2&0&0&1
+			\end{pmatrix}
+			\overset{(1)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&-4&0&-1&0&0\\
+				0&-1&1&-1&1&0\\
+				0&3&-2&0&0&1
+			\end{pmatrix}
+			\overset{(2)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&-4&0&-1&0&0\\
+				0&1&-1&1&-1&0\\
+				0&0&1&-3&3&1
+			\end{pmatrix}
+		\end{align*}
+		\begin{align*}
+			\begin{pmatrix}
+				1&-4&0&-1&0&0\\
+				0&1&-1&1&-1&0\\
+				0&0&1&-3&3&1
+			\end{pmatrix}
+			\overset{(3)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&-4&0&-1&0&0\\
+				0&1&0&-2&2&1\\
+				0&0&1&-3&3&1
+			\end{pmatrix}
+			\overset{(4)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&0&0&-9&8&4\\
+				0&1&0&-2&2&1\\
+				0&0&1&-3&3&1
+			\end{pmatrix}
+		\end{align*}
+		\begin{enumerate}
+			\item Zeile 1 mit $-1$ multiplizieren. Addiere Zeile 1 zu Zeile 2.
+			\item Zeile 2 mit $-1$ multiplizieren. Ziehe $3-$faches der Zeile 2 von Zeile 3 ab.
+			\item Addiere Zeile 3 zu Zeile 2.
+		\end{enumerate}
+		Nach dem sie Mithilfe des Gauß-Jordan-Algorithmus auf eine reduzierte ZSF gebracht wurde kann man $A^{-1}$ Aus den Spalten $4-6$ ablesen.
+		\begin{align*}
+			A^{-1}:=
+			\begin{pmatrix}
+				-9&8&4\\
+				-2&2&1\\
+				-3&3&1
+			\end{pmatrix}
+			\text{ denn: }
+			AA^{-1}=
+			\begin{pmatrix}-1&4&0\\-1&3&1\\0&3&-2\end{pmatrix}
+			\begin{pmatrix}-9&8&4\\-2&2&1\\-3&3&1\end{pmatrix}
+			=
+			\begin{pmatrix}9-8&-8+8&0\\9-6-3&-8+6+3&-4+3+1\\-6+6&6-6&3-2\end{pmatrix}
+			=\1_3\qed
+		\end{align*}
+	\section*{8.4}
+		\begin{align*}
+			^B\vec{e}_1,^B\vec{e}_2\in\R^2\Rightarrow LR\left((\vec{b}_1,\vec{b}_2);(\vec{e_1},\vec{e}_2)\right)=\{^B\vec{e_1},^B\vec{e}_2\}
+		\end{align*}
+		Im folgenden habe ich aus $\vec{b}_1,\vec{b}_2,\vec{e}_1,\vec{e}_2$ die erweiterte Matrix gebildet um $LR\left((\vec{b}_1,\vec{b}_2);\vec{e_1},\vec{e}_2\right)$ zu ermitteln.
+		\begin{align*}
+			\begin{pmatrix}
+				1&1&|&1&0\\
+				-1&1/2&|&0&1
+			\end{pmatrix}
+			\overset{(1)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&1&|&1&0\\
+				0&3/2&|&1&1
+			\end{pmatrix}
+			\overset{(2)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&1&|&1/3&-2/3\\
+				0&1&|&2/3&2/3
+			\end{pmatrix}
+		\end{align*}
+		\begin{enumerate}
+			\item Addiere Zeile 1 zu Zeile 2.
+			\item Multipliziere Zeile 2 mit 2/3. Ziehe Zeile 2 von Zeile 1 ab.
+		\end{enumerate}
+		\begin{align*}
+			\Rightarrow\quad^B\vec{e}_1=\begin{pmatrix}1/3\\2/3\end{pmatrix}\text{ und }^B\vec{e}_2=\begin{pmatrix}-2/3\\2/3\end{pmatrix}\qed
+		\end{align*}
+		\begin{align*}
+			^B_Bf=\left(^Bf(\vec{b}_1),^Bf(\vec{b}_2)\right)
+		\end{align*}
+		\begin{align*}
+			f\left(\vec{e}_1\right)&:=\begin{pmatrix}1\\0\end{pmatrix}+3\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}1\\3\end{pmatrix}& f(\vec{e}_2)&:=6\begin{pmatrix}1\\0\end{pmatrix}-2\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}6\\-2\end{pmatrix}
+			\\
+			f\left(\vec{b}_1\right)&=f\begin{pmatrix}1\\-1\end{pmatrix}\overset{lin.A.}{=}f\begin{pmatrix}1\\0\end{pmatrix}-f\begin{pmatrix}0\\1\end{pmatrix}& f(\vec{b}_2)&=f\begin{pmatrix}1\\1/2\end{pmatrix}\overset{lin.A.}{=}f\begin{pmatrix}1\\0\end{pmatrix}+\frac{1}{2}f\begin{pmatrix}0\\1\end{pmatrix}\\
+			&=\begin{pmatrix}1\\3\end{pmatrix}-\begin{pmatrix}6\\-2\end{pmatrix}=\begin{pmatrix}-5\\5\end{pmatrix}&&=\begin{pmatrix}1\\3\end{pmatrix}+\begin{pmatrix}3\\-1\end{pmatrix}=\begin{pmatrix}4\\2\end{pmatrix}
+		\end{align*}
+		Analog wie oben wird nun die erweiterte Matrix gebildet.
+		\begin{align*}
+			\begin{pmatrix}
+				1&1&|&-5&4\\
+				-1&1/2&|&5&2
+			\end{pmatrix}
+			\overset{(1)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&1&|&-5&4\\
+				0&3/2&|&0&6
+			\end{pmatrix}
+			\overset{(2)}{\rightsquigarrow}
+			\begin{pmatrix}
+				1&0&|&-5&0\\
+				0&1&|&0&4
+			\end{pmatrix}
+		\end{align*}
+		\begin{enumerate}
+			\item Addiere Zeile 1 zu Zeile 2.
+			\item Multipliziere Zeile 2 mit 2/3. Subtrahiere Zeile 2 von Zeile 1.
+		\end{enumerate}
+		\begin{align*}
+			\Rightarrow\quad^B_Bf=\begin{pmatrix}-5&0\\0&4\end{pmatrix}\qed
+		\end{align*}
+\end{document}

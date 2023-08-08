@@ -1,0 +1,200 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol} %spalten in seite
+\usepackage{graphicx} %bilder einfügen
+\usepackage{tabto} %tabulator mit \tab
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} %quellcode
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+\usepackage{stmaryrd}
+\usepackage[left=20mm, right=15mm, top=25mm, bottom=30mm, paper=a4paper]{geometry}
+
+\begin{document}
+	
+	\title{Lineare Algebra für Informatiker - Übung 03}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+	
+	\section*{Hausaufgabe 3.1: Tropischer Semiring}
+		$Sei\,T := \mathbb{R} \cup \{-\infty\}$ für alle a,b $\in$ T gilt:
+		\begin{align*}
+			a \oplus b &:= max\{a,b\}\\
+			a \odot b &:= a + b
+		\end{align*}
+	nun gilt es zu zeigen welche Körperaxiome erfüllt sind und Das Null- und das Einselement zu finden.\\
+	\begin{align*}
+		a\oplus b &= b\oplus a\\
+		max(a,b) &= max(b,a) \qed
+	\end{align*}
+	Assoziativität von $\odot$ $\forall a,b,c\in T$:
+	\begin{align*}
+		a \odot (b\odot c) &= (a\odot b)\odot c \\
+		a+(b+c) &= (a+b)+c\\
+		\overset{Assoz.}{\Rightarrow} a+b+c &= a+b+c \qed
+	\end{align*}
+	Assoziativität von $\oplus$ $\forall a,b,c\in T$:
+	\begin{align*}
+		a \oplus (b\oplus c) &= (a\oplus b)\oplus c \\
+		max(a,b\oplus c) &= max(a\oplus b,c)\\
+		max(a,max(b,c)) &= max(max(a,b),c) \qed\\
+	\end{align*}
+	Distributivität $\forall a,b,c\in T$:
+	\begin{align*}
+		1.&& (a\oplus b)\odot c &= a\odot c\oplus b\odot c\\
+		&& max(a,b)+c &= max(a+c,b+c)\\
+		\text{wenn a $>$ b}&& a+c &= max(a+c,b+c)\\
+		&& a+c &= a+c\\
+		\text{wenn b $>$ a}&& b+c &= max(a+c,b+c)\\
+		&& b+c &= b+c \qed\\
+		\\
+		2.&& a\odot (b\oplus c) &= a\odot b\oplus a\odot c\\
+		&& a+max(b,c) &= max(a+b,a+c)\\
+		\text{wenn b $>$ c}&& a+b &= max(a+b,a+c)\\
+		&& a+b &= a+b\\
+		\text{wenn c $>$ b}&& a+c &= max(a+b,a+c)\\
+		&& a+c &= a+c \qed
+	\end{align*}
+	Neutrale Elemente $\forall a\in T$:
+	\begin{align*}
+		a\oplus 0 &= a		&a\odot 1 &= a\\
+		max(a,0) &= a		&a+1 &= a\\
+		\Rightarrow 0 &:= -\infty	&\Rightarrow 1 &:= 0 \qed
+	\end{align*}
+	Negation (additives Invers) $\forall a\in T$: $\exists-a \in T:$
+	\begin{align*}
+		&& a\oplus(-a) &= 0\\
+		&& max(a,-a) &= 0 \mid \text{mit $0 = -\infty$}\\
+		\text{mit z.B. a = 7:}&& max(7,-a) &:= -\infty \quad \lightning
+	\end{align*}
+	Kommutativität von $\odot$ $\forall a,b\in T$:
+	\begin{align*}
+		a\odot b &= b\odot a\\
+		a+b &= b+a \qed
+	\end{align*}
+	$T^*:=T\textbackslash \{0\}.$\\
+	Multiplikatives Invers $1\neq0$ und $\forall a\in T^*$: $\exists a^{-1} \in T:$
+	\begin{align*}
+		a\odot a^{-1} &= 1 \quad 1\neq 0\\
+		a+a^{-1} &= 1 \quad\mid \text{mit $1=0$ } (Neutrales Element)\\
+		a+a^{-1} &= 0\\
+		\Rightarrow a^{-1} &:= -a 
+	\end{align*}
+	D.h.: Der Ring (T, $\oplus$, $\odot$, $-\infty$, 0) erfüllt alle Körperaxiome mit außer die Negation.
+	\section*{Hausaufgabe 3.2: $\mathbb{C}$}
+		Sei $\mathbb{R}\times\mathbb{R}:=\{(a,b)\mid a,b\in \mathbb{R}\}$ mit den inneren Verknüpfungen $+$ und $\cdot$, wobei gilt $\forall (a,b),(c,d)\in \mathbb{R}\times \mathbb{R}$:
+		\begin{align*}
+			(a,b)+(c,d) &:= (a+c,b+d)\\
+			(a,b)\cdot (c,d) &:= (a\cdot c-b\cdot d,a\cdot d+b\cdot c) = (ac-bd,ad+bc)
+		\end{align*}
+	Da $\mathbb{R}^2$ ein Körper sein soll, wird im folgenden vorausgesetzt, dass die Körperaxiome gelten. Dies gilt es nun zu beweisen.\\
+	Kommutativität von + $\forall$ (a,b),(c,d) $\in \mathbb{R}^2$:
+	\begin{align*}
+		(a,b)+(c,d) &= (c,d)+(a,b)\\
+		(a+c,b+d) &\overset{komm.}{=} (c+a,d+b) \qed
+	\end{align*}
+	Kommutativität von $\cdot$  $\forall$ (a,b),(c,d) $\in \mathbb{R}^2$:
+	\begin{align*}
+		(a,b)\cdot(c,d) &= (c,d)\cdot(a,b)\\
+		(ac-bd,ad+bc) &\overset{komm.}{=} (ca-db,cb+da) \qed
+	\end{align*}
+	Assoziativität von + $\forall$ (a,b),(c,d),(e,f) $\in \mathbb{R}^2$:
+	\begin{align*}
+		(a,b)+((c,d)+(e,f)) &= ((a,b)+(c,d))+(e,f)\\
+		(a,b)+(c+e,d+f) &= (a+c,b+d)+(e,f)\\
+		(a+c+e,b+d+f) &= (a+c+e,b+d+f) \qed
+	\end{align*}
+	Assoziativität von $\cdot$ für $\forall$ (a,b),(c,d),(e,f) $\in \mathbb{R}^2$:
+	\begin{align*}
+		(a,b)\cdot((c,d)\cdot(e,f)) &= ((a,b)\cdot(c,d))\cdot(e,f)\\
+		(a,b)\cdot(ce-df,cf+de) &= (ac-bd,ad+bc)\cdot(e,f)\\
+		(a\cdot(ce-df)-b\cdot(cf+de),a\cdot(cf+de)+b\cdot(ce-df)) &= ((ac-bd)\cdot e-(ad+bc)\cdot f,(ac-bd)\cdot f+(ad+bc)\cdot e)\\
+		(\textcolor{green}{ace}-\textcolor{magenta}{adf}-\textcolor{red}{bcf}-\textcolor{teal}{bde},\textcolor{olive}{acf}+\textcolor{purple}{ade}+\textcolor{orange}{bce}-\textcolor{blue}{bdf}) &\overset{komm.}{=} (\textcolor{green}{ace}-\textcolor{teal}{bde}-\textcolor{magenta}{adf}-\textcolor{red}{bcf},\textcolor{olive}{acf}-\textcolor{blue}{bdf}+\textcolor{purple}{ade}+\textcolor{orange}{bce}) \qed
+	\end{align*}
+	Distributivität 1. $\forall$ (a,b),(c,d),(e,f) $\in \mathbb{R}^2$:
+	\begin{align*}
+		((a,b)+(c,d))\cdot (e,f) &= (a,b)\cdot (e,f)+(c,d)\cdot (e,f)\\
+		(a+c,b+d)\cdot (e,f) &= (ae-bf,af+be)+(ce-df,cf+de)\\
+		((a+c)\cdot e-(b+d)\cdot f,(a+c)\cdot f+(b+d)\cdot e) &= (ae-bf+ce-df,af+be+cf+de)\\
+		(\textcolor{green}{ae}+\textcolor{magenta}{ce}-\textcolor{red}{bf}-\textcolor{teal}{df},\textcolor{olive}{af}+\textcolor{purple}{cf}+\textcolor{orange}{be}+\textcolor{blue}{de}) &\overset{komm.}{=} (\textcolor{green}{ae}-\textcolor{red}{bf}+\textcolor{magenta}{ce}-\textcolor{teal}{df},\textcolor{olive}{af}+\textcolor{orange}{be}+\textcolor{purple}{cf}+\textcolor{blue}{de}) \qed
+	\end{align*}
+	Distributivität 2. $\forall$ (a,b),(c,d),(e,f) $\in \mathbb{R}^2$:
+	\begin{align*}
+		(a,b)·\cdot((c,d)+(e,f)) &= (a,b)\cdot(c,d)+(a,b)\cdot(e,f)\\
+		(a,b)\cdot (c+e,d+f) &= (ac-bd,ad+bc)+(ae-bf,af+be)\\
+		(a\cdot(c+e)-b\cdot(d+f),a\cdot(d+f)+b\cdot(c+e)) &= (ac-bd+ae-bf,ad+bc+af+be)\\
+		(\textcolor{green}{ac}+\textcolor{magenta}{ae}-\textcolor{red}{bd}+\textcolor{teal}{bf},\textcolor{olive}{ad}+\textcolor{purple}{af}+\textcolor{orange}{bc}+\textcolor{blue}{be}) &\overset{komm.}{=} (\textcolor{green}{ac}-\textcolor{red}{bd}+\textcolor{magenta}{ae}-\textcolor{teal}{bf},\textcolor{olive}{ad}+\textcolor{orange}{bc}+\textcolor{purple}{af}+\textcolor{blue}{be}) \qed
+	\end{align*}
+	Neutrale Elemente, wobei (c,d)$\in \mathbb{R}^2$ jeweils das neutrales Element ist: $\forall$ (a,b)$\in \mathbb{R}^2$:
+	\begin{align*}
+		additiv:& &multiplikativ:\\
+		(a,b)+(c,d) &= (a,b) &(a,b)\cdot (c,d) &= (a,b)\\
+		(a+c,b+d) &= (a,b) &(ac-bd,ad+bc) &=(a,b)\\
+		\Rightarrow (c,d)&:=(0,0) \qed &\Rightarrow (c,d)&:=(1,0) \qed
+	\end{align*}
+	Additives Invers: $\forall$ (a,b) $\in \mathbb{R}^2$: $\exists -(a,b) \in \mathbb{R}^2:$
+	\begin{align*}
+		(a,b)+(-(a,b)) &= (0,0)\\
+		(a-a,b-b) &= (0,0)\\
+		\Rightarrow additive\,Invers\,:&=\,(-a,-b) \qed
+	\end{align*}
+	$\mathbb{R}^{2*}:=\mathbb{R}^2 \textbackslash \{0\}$\\
+	Multiplikative Invers: $1\neq0$ und $\forall$ (a,b) $\in \mathbb{R}^{2*}$: $\exists (a,b)^{-1} \in \mathbb{R}^2:$
+	\begin{align*}
+		(a,b)\cdot(a,b)^{-1}&=(1,0),\quad(a,b)^{-1}:=(c,d)\\
+		(a,b)\cdot(c,d) &= (ac-bd,ad+bc) = (1,0)
+	\end{align*}
+	\begin{align*}
+		1.\quad ac-bd &=1\\
+		2.\quad ad+bc &= 0 \\
+		c&=\frac{a}{a^2+b^2}\\
+		d&=\frac{-b}{a^2+b^2}\\
+		1.\quad a\cdot \frac{a}{a^2+b^2}-b\cdot \frac{-b}{a^2+b^2} &= 1\\
+		\frac{a^2}{a^2+b^2}-(-\frac{b^2}{a^2+b^2}) &= 1\\
+		\frac{a^2+b^2}{a^2+b^2}&= 1\\
+		2.\quad a\cdot \frac{-b}{a^2+b^2}+b\cdot \frac{a}{a^2+b^2} &= 0\\
+		-\frac{a\cdot b}{a^2+b^2}+\frac{a\cdot b}{a^2+b^2} &= 0\\\\
+		(a,b)^{-1}:&=(\frac{a}{a^2+b^2},\frac{-b}{a^2+b^2}) \qed
+	\end{align*}
+	D.h.: $\mathbb{R}\times \mathbb{R}$ ist ein Körper.
+	\newpage
+	\section*{Hausaufgabe 3.3: Besondere Ringelemente}
+	Es sei R ein Ring, Man nennt x $\in$ R idempotent gdw. x $\cdot$ x = x (Beispiel:1 und 0 sind immer idempotent, aber in manchen Ringen gibt es weitere Idempotente). Zeigen Sie: Wenn x $\in$ R idempotent ist, dann ist auch y := 1 - x.
+	idempotent und es gilt x $\cdot$ y = y $\cdot$ x = 0.
+		f)  $\forall\,x\,\in\,R:\,(-1)\,\cdot\,x\,=\,-x.$
+		\begin{align*}
+			y:&=1-x\\
+			y &= y\cdot y = (1-x)(1-x)\\
+			&= 1\cdot 1+1\cdot (-x)+(-x)\cdot 1+(-x)(-x) \\
+			&\overset{f)}{=}1-x-x+x\\
+			&= 1-x \qed
+		\end{align*}
+		\begin{align*}
+			y\cdot x &= (x-1)\cdot x & x\cdot y &= x\cdot (x-1)\\
+			&= 1\cdot x+(-x)\cdot x & &= x\cdot x+x\cdot (-1)\\
+			&\overset{assoz.}{=} x+(-1(x\cdot x)) & &\overset{idempo.}{=} x-x=0 \qed\\
+			&\overset{idempo.}{=} x-x=0 \qed
+		\end{align*}
+	\section*{Hausaufgabe 3.4: Nullteilerfreie Ringe}
+		Ein Ring R heißt nullteilerfrei gdw. für alle a, b $\in$ R mit a $\cdot$ b = 0 folgt a = 0 oder b = 0. Zeigen Sie: Ist R ein nullteilerfreier Ring, dann gilt die multiplikative Kürzungsregel:
+		\begin{align*}
+			\forall x,y,z\in R,z\neq 0:(x\cdot z=y\cdot z\Rightarrow x=y)\wedge(z\cdot x=z\cdot y\Rightarrow x=y)
+		\end{align*}
+		\begin{align*}
+			x\cdot z&=y\cdot z \quad\mid\,-x\cdot z &z\cdot x&= z\cdot y\quad\mid\,-z\cdot x\\
+			x\cdot z-x\cdot z &= y\cdot z-x\cdot z & z\cdot x-z\cdot x&= z\cdot y-z\cdot x\\
+			\overset{Distributiv.}{\Rightarrow} 0&=z\cdot(y-x) &\overset{Distributiv.}{\Rightarrow} 0&= z\cdot(y-x)\\
+			\overset{Nullteilerfrei.}{\Rightarrow} z=0 &\vee y-x=0 &\overset{Nullteilerfrei.}{\Rightarrow} z=0 &\vee y-x=0\\
+			\overset{z\neq0}{\Rightarrow} y-x&=0\quad\mid\,+x &\overset{z\neq0}{\Rightarrow} y-x&=0\quad\mid\,+x\\
+			y&=x \qed & y&=x \qed
+		\end{align*}
+\end{document}

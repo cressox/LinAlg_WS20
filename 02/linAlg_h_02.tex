@@ -1,0 +1,110 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol} %spalten in seite
+\usepackage{graphicx} %bilder einfügen
+\usepackage{tabto} %tabulator mit \tab
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}  
+\usepackage[utf8]{inputenc}
+\usepackage{listings} %quellcode
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+
+\usepackage[left=15mm, right=15mm, top=25mm, bottom=30mm, paper=a4paper]{geometry}
+
+\begin{document}
+	
+	\title{Lineare Algebra für *-Informatik - Übung 02}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+
+	\part*{Hausaufgaben}
+	\section*{Hausaufgabe 2.1} 
+		\subsection*{Mengen}
+			Sei C eine Menge, A $\subseteq$ C und B $\subseteq$ C. Des weiteren geht aus der Definition der Teilmenge hervor:
+			Eine Menge N heißt eine Teilmenge einer Menge M :$\Leftrightarrow$ jedes Element von
+			N ist auch ein Element aus M. Bezeichnung: N $\subseteq$ M.\footnote{Definition aus der Vorlesung}. Mann kann also N$\subseteq$ M $\Leftrightarrow$ $\forall$ x $\in$ N $\Rightarrow$ x $\in$ M schreiben. Es ist zu beweisen, dass gilt:
+			\begin{align*}
+				\{K \in \mathscr{P}(C) \mid B \subseteq K\}\cap \{K \in \mathscr{P}(C) \mid A \subseteq K\}&& &= &&\{K \in \mathscr{P}(C) \mid A\cup B \subseteq K\}\\\\
+				 \{K \in \mathscr{P}(C) \mid B \subseteq K\}&& &= && \{K \in \mathscr{P}(C) \mid \forall x \in B \Rightarrow x \in K\}\\
+				 \{K \in \mathscr{P}(C) \mid A \subseteq K\}&& &= && \{K \in \mathscr{P}(C) \mid \forall x \in A \Rightarrow x \in K\}\\
+				 \{K \in \mathscr{P}(C) \mid B \subseteq K\}\cap \{K \in \mathscr{P}(C) \mid A \subseteq K\}&& &= &&\{K \in \mathscr{P}(C) \mid \forall x \in B \Rightarrow x \in K\} \cap \{K \in \mathscr{P}(C) \mid \forall x \in A \Rightarrow x \in K\}\\
+				 && &= &&\{K \in \mathscr{P}(C) \mid \forall x \in (a\cup b) \Rightarrow x \in K\}\\
+				 \\
+				 \{K \in \mathscr{P}(C) \mid A\cup B \subseteq K\}&& &= && \{K \in \mathscr{P}(C) \mid \forall x \in (a \cup b) \Rightarrow x \in K\} \qed
+			 \end{align*}
+		 Das man so schlussfolgern kann zeige ich anhand folgender Wahrheitstabelle: \\\\
+		 Es gilt $a\in A, b\in B$
+
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{cccccc|cc}
+				$a$&$b$&$a\cup b$&$K$&$a\Rightarrow K$&$b\Rightarrow K$&$(a\Rightarrow K)\cap (b\Rightarrow K)$&$(a\cup b)\Rightarrow K$\\\hline
+				$W$&$W$&$W$&$W$&$W$&$W$&$W$&$W$\\
+				$W$&$W$&$W$&$F$&$F$&$F$&$F$&$F$\\
+				$W$&$F$&$W$&$W$&$W$&$W$&$W$&$W$\\
+				$W$&$F$&$W$&$F$&$F$&$W$&$F$&$F$\\
+				$F$&$W$&$W$&$W$&$W$&$W$&$W$&$W$\\
+				$F$&$W$&$W$&$F$&$W$&$F$&$F$&$F$\\
+				$F$&$F$&$F$&$W$&$W$&$W$&$W$&$W$\\
+				$F$&$F$&$F$&$F$&$W$&$W$&$W$&$W$\\
+			\end{tabular}
+		\end{table}
+
+		 
+	\section*{Hausaufgabe 2.2}
+		\subsection*{Definitionen}
+		Sei $f:D\rightarrow M$ eine Abbildung.
+			\begin{itemize}
+				\item $f$ heißt \textbf{injektiv}, wenn $\forall x_1,x_2 \in D \mid x_1=x_2 \Rightarrow f(x_1)=f(x_2)$
+				\item $f$ heißt \textbf{surjektiv}, wenn wenn jedes Element von M das Bild eines Elements aus D ist, kurz: $f(D)=M$, Schreibweise: $f: X \twoheadrightarrow  Y$
+				\item $f$ heißt \textbf{bijektiv} oder \textbf{eins-zu-eins Abbildung}, wenn $f$ sowohl injektiv als auch surjektiv ist.\footnote{Teschl und Teschl, 2013, Mathematik für Informatiker, 4. Auflage, Springer-Verlag Berlin, Seite 156}
+				\item der \textbf{Graph} von $f$ ist die Menge: $G_f:=\{(x,f(x))\in D \times M \mid x\in D\}$, somit ist der Graph eine spezielle Teilmenge des Kartesischen Produkts.\footnote{Wikipedia: Definition Funkltionsgraph}
+			\end{itemize}
+		
+		\subsection*{Die Menge der Abbildungen}
+			Der Funktionsgraph einer Abbildung sei definiert als $f: X\rightarrow Y$ ist $\Gamma_f:=\{(x,f(x)\mid x\in X)\}\subset X\times Y$. und es sei G $\subset X\times Y$. Nun ist festzulegen wann $G=\Gamma_f$ gilt. Vereinfacht kann man sich ein beliebiges Tupel veranschaulichen: 
+			\begin{align*}
+				G &= \Gamma_f\\
+				(x_G,y_G) &= (x_\Gamma,f(x_\Gamma)) \\
+				 x_G=x_\Gamma &\Rightarrow y_G=f(x_\Gamma) \text{\quad\quad\quad (a)}
+			\end{align*}
+			Aus $y_0=f(x_0)$ folgt $G_{f1}:X\twoheadrightarrow Y$ (\textbf{surjektiv}). Nun betrachten wir $G_{f1}$ als mögliche Abbildung $f_1:X\rightarrow Y$ von G:
+			\begin{align*}
+				G_{f1} &= \Gamma_f\\
+				(x_G,f_1(x_G)) &= (x_\Gamma,f(x_\Gamma))\\
+				x_G = x_\Gamma &\Rightarrow f_1(x_G)=f(x_\Gamma) \text{\quad\quad\quad (b)}
+			\end{align*}
+			\noindent
+			Aus $f_1(x_G)=f(x_\Gamma) \Rightarrow x_G = x_\Gamma$ folgt, dass $G_{f1}$ auch \textbf{injektiv} ist. Somit ist $G_{f1}$ \textbf{bijektiv} unter der Bedingung, dass (a) und (b) gelten. \underline{Somit gilt $G=\Gamma_f$ für eine Abbildung $f:X\rightarrow Y$, wenn $f$ bijektiv ist.} \\\\
+			
+			\noindent
+			Ein Paar der Funktion $f$ ist als $f=(X,Y)$ definiert. Da nun aber $x_G=x_\Gamma$ gelten soll, kann dieses Paar als $f=(G,Y)$ beschrieben werden, wobei hier die Definitionsmenge durch den ersten Teil von G und zwar $x_G$ festgelegt ist. Nehmen wir nun eine Menge $M:=\{f: X\rightarrow Y\}$ welche die Gesamtheit aller bijektiven Abbildungen darstellt. Nehmen wir hierzu mal das Gegenteil an, wenn M keine Menge ist, dann gilt auch nicht  $K := \{x \in M |x \not\in x\}$ nach dem Aussonderungsaxiom. Allerdings gilt $K\not\in K$, denn für K gilt $f=(G,Y)$ und da $K\not\in G\Rightarrow K\not\in K$ da also das Aussonderungsaxiom gilt ist M eine Menge. 
+			\\\\
+			
+	\section*{Hausaufgabe 2.3}
+		\subsection*{Ein erstes lineares Gleichungssystem}
+		Es sind alle (x, y, z) $\in$ $\mathbb{R}^3$ zu berechnen welche die Gleichungen 1), 2) und 3) erfüllen:
+		\begin{align*}
+			1)&& 4\,x-5\,y-3\,z &=0 \\
+			2)&& -3\,x+4\,y+2\,z &=0 \\
+			3)&& x-5\,y+3\,z &=0\\
+			\\
+			aus\,\,\,1)-3)\,folgt:&& 3\,x-6\,z &= 0 &&\mid +6\,z\\
+			&& 3\,x &= 6\,z &&\mid \div\,3\\
+			&& x &= 2\,z\\
+			x = 2\,z\,einsetzen\,in\,"3\,x-6\,z\,=\,0":&& 3\,(2\,z)-6\,z &= 0\\
+			&& z &= z\\
+			z=z\,und\,x=2\,z\,einsetzen\,in\,\,\,3):&& 2\,z-5\,y+3\,z &= 0 &&\mid +5\,y\\
+			&& z &= y
+		\end{align*}
+		\underline{\underline{d.h. (x,y,z) $\in$ $\mathbb{R}^3$ $\mid$ $x=2\,z,\,y=z,\,z=z$}}
+		
+\end{document}

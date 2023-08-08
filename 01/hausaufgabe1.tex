@@ -1,0 +1,138 @@
+\documentclass[titlepage]{article}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\pagestyle{plain}
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3} %vertikaler abstand von tabellen
+\newcommand{\n}{\newline}
+
+\begin{document}
+	
+	\title{Hausaufgaben Lineare Algebra 01}
+	\author{Felix Tischler, Martrikelnummer: 191498}
+	\date{\today}
+	\maketitle
+	
+	\section*{1.1.a}
+		{
+			Es sein P und Q Aussagen. \\ \\
+			\begin{tabular}{cccc|cc|cc}
+				$P$&$Q$&$\neg P$&$\neg Q$&$\neg (P\wedge Q)$&$\neg (P\vee Q)$&$(\neg P)\vee (\neg Q)$&$(\neg P)\wedge (\neg Q)$
+				\\\hline
+				$F$&$F$&$W$&$W$&$W$&$W$&$W$&$W$
+				\\
+				$F$&$W$&$W$&$F$&$W$&$F$&$W$&$F$		
+				\\
+				$W$&$F$&$F$&$W$&$W$&$F$&$W$&$F$
+				\\
+				$W$&$W$&$F$&$F$&$F$&$F$&$F$&$F$
+			\end{tabular}
+		}
+		\n \n \n
+		\hspace*{10mm} d.h.:
+		\n \n
+		\hspace*{20mm}
+		$\neg (P\wedge Q)\Leftrightarrow (\neg P)\vee (\neg Q)$
+		\n \n \hspace*{20mm}
+		$\neg (P\vee Q)\Leftrightarrow (\neg P)\wedge (\neg Q)$
+		
+		\section*{1.1.b}
+		{
+			\centering
+			\begin{tabular}{ccccc|cc}
+				$P$&$Q$&$\neg P$&$\neg P\wedge Q$&$Q\Rightarrow P$&$(P\wedge (Q\Rightarrow P))$&$((P\wedge Q)\vee (\neg P))$
+				\\\hline
+				$F$&$F$&$W$&$F$&$W$&$F$&$W$
+				\\
+				$F$&$W$&$W$&$F$&$F$&$F$&$W$	
+				\\
+				$W$&$F$&$F$&$F$&$W$&$W$&$F$
+				\\
+				$W$&$W$&$F$&$W$&$W$&$W$&$W$
+			\end{tabular}
+		}
+		\n \n \n
+		\hspace*{10mm} d.h.:
+		\n \n
+		\hspace*{20mm}
+		$(P\wedge (Q\Rightarrow P)\neq ((P\wedge Q)\vee (\neg P))$
+		\n \n \hspace*{20mm}
+		"Die Aussagen sind nicht gleichbedeutend."
+		
+		\newpage
+		\section*{1.2}
+
+
+					\begin{table}[h]
+						\begin{tabular}{cc|cccc}
+							
+							$P$&$Q$&$\neg P$&$\neg Q$&$P\wedge Q$&$\neg (P\wedge Q)$ \\
+							\hline
+							$F$&$F$&$W$&$W$&$F$&$W$ \\
+							$F$&$W$&$W$&$F$&$F$&$W$ \\
+							$W$&$F$&$F$&$W$&$F$&$W$ \\
+							$W$&$W$&$F$&$F$&$W$&$F$ \\
+							\n \n \n
+							
+						\end{tabular}
+						\n
+						\begin{tabular}{cc|cc}
+							
+							$P\Rightarrow Q$&$P\vee Q$&$\neg (P\wedge \neg (Q))$&$\neg (\neg (P)\wedge \neg (Q))$ \\
+							\hline
+							$W$&$F$&$W$&$F$ \\
+							$W$&$W$&$W$&$W$ \\
+							$F$&$W$&$F$&$W$ \\
+							$W$&$W$&$W$&$W$ \\
+							
+						\end{tabular}
+						\n \n \n
+						\begin{tabular}{c|ccccc}
+							
+							$P\dot \vee Q$&$P\Rightarrow Q$&$Q\Rightarrow P$&$\neg (P\wedge \neg (Q))$&$\neg (Q\wedge \neg (P))$&$\neg( \neg( P\wedge \neg (Q)) \wedge \neg (Q\wedge \neg (P)))$ \\\hline
+							$F$&$W$&$W$&$W$&$W$&$F$ \\
+							$W$&$W$&$F$&$W$&$F$&$W$ \\
+							$W$&$F$&$W$&$F$&$W$&$W$ \\
+							$F$&$W$&$W$&$W$&$W$&$F$ \\
+							
+						\end{tabular}
+						\n \n \n
+						\hspace*{10mm} d.h. folgende Aussagen sind Gleichbedeutend:
+						\n \n
+						\hspace*{20mm}
+						$P\Rightarrow Q\Leftrightarrow \neg (P\wedge \neg (Q))$
+						\n \n \hspace*{20mm}
+						$P\vee Q\Leftrightarrow \neg (\neg (P)\wedge \neg (Q))$
+						\n \n \hspace*{20mm}
+						$P\dot \vee Q \Leftrightarrow \neg( \neg( P\wedge \neg (Q)) \wedge \neg (Q\wedge \neg (P)))$
+					\end{table}
+
+
+		\newpage
+		\section*{1.3}
+		\begin{table}[h]
+			\begin{tabular}{cc|ccc}
+				$P$&$Q$&$\neg P$&$P\wedge Q$&$P*P$ \\\hline
+				$F$&$F$&$W$&$F$&$W$ \\
+				$F$&$W$&$W$&$F$&$W$ \\
+				$W$&$F$&$F$&$F$&$F$ \\
+				$W$&$W$&$F$&$W$&$F$ \\
+			\end{tabular}
+			\n \n \n
+			\begin{tabular}{cc|cccc}
+				$P$&$Q$&$P\wedge Q$&$Q*Q$&$P*Q$&$(P*P)*(Q*Q)$ \\\hline
+				$F$&$F$&$F$&$W$&$W$&$F$ \\
+				$F$&$W$&$F$&$F$&$F$&$F$ \\
+				$W$&$F$&$F$&$W$&$F$&$F$ \\
+				$W$&$W$&$W$&$F$&$F$&$W$ \\
+			\end{tabular}
+			\\ \n \n \n \hspace*{10mm}
+			Der Operateor "$*$" ist so zu verstehen:
+			\n \n \hspace*{20mm}
+			$F*F = 1,\, W*F = 0$ \n \n \hspace*{20mm}
+			$W*W = 0,\, F*W = 0$
+		\end{table}
+\end{document}
